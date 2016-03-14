@@ -141,7 +141,15 @@
     create: function (x, y, width, height) {
       return {x: x, y: y, width: width, height: height};
     },
-    contain: function (boundary, x, y) {
+    contain: function () {
+      switch (arguments.length) {
+        case 2:
+          return QuadTree.Boundary.containBoundary.apply(null, arguments);
+        default:
+          return QuadTree.Boundary.containPoint.apply(null, arguments);
+      }
+    },
+    containPoint: function (boundary, x, y) {
       var nodeHalfWidth = boundary.width / 2,
           nodeHalfHeight = boundary.height / 2;
       if (x <  boundary.x -  nodeHalfWidth)
@@ -151,6 +159,20 @@
       if (y <  boundary.y - nodeHalfHeight)
         return false;
       if (y >= boundary.y + nodeHalfHeight)
+        return false;
+      return true;
+    },
+    containBoundary: function (boundary1, boundary2) {
+      // conditone: boundary1 is bigger than boundary2
+      var halfWidth1  = boundary1.width / 2,
+          halfHeight1 = boundary1.height / 2,
+          halfWidth2  = boundary2.width / 2,
+          halfHeight2 = boundary2.height / 2;
+      if ((boundary1.x + halfWidth1 < boundary2.x + halfWidth2)||
+          (boundary1.x - halfWidth1 > boundary2.x - halfWidth2))
+        return false;
+      if ((boundary1.y + halfHeight1 < boundary2.y + halfHeight2)||
+          (boundary1.y - halfHeight1 > boundary2.y - halfHeight2))
         return false;
       return true;
     },
