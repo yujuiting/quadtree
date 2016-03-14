@@ -116,7 +116,7 @@
 
       return null;
     },
-    findItemIn: function (node, boundary) {
+    findItemsIn: function (node, boundary) {
       var i, item, items = [];
       if (!QuadTree.Boundary.intersect(node.boundary, boundary))
         return items;
