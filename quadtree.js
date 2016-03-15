@@ -121,7 +121,7 @@
       if (!QuadTree.Boundary.intersect(node.boundary, boundary))
         return items;
       for (i = 0; i < node.children.length; i++)
-        items = items.concat(QuadTree.Node.findItemIn(node.children[i], boundary));
+        items = items.concat(QuadTree.Node.findItemsIn(node.children[i], boundary));
       for (i = 0; i < node.items.length; i++) {
         item = node.items[i];
         if (QuadTree.Boundary.contain(boundary, item.x, item.y))
